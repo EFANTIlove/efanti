@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EFANTI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #08070d;
+            --card: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.07);
+            --accent: #8b5cf6;
+            --accent-2: #a78bfa;
+            --text: #ffffff;
+            --muted: rgba(255, 255, 255, 0.45);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            min-height: 100vh;
+            background: var(--bg);
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+
+        .bg {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background:
+                radial-gradient(ellipse 60% 45% at 50% -10%, rgba(124, 58, 237, 0.16) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 40% at 85% 100%, rgba(124, 58, 237, 0.08) 0%, transparent 70%),
+                radial-gradient(ellipse 45% 35% at 10% 60%, rgba(88, 28, 200, 0.06) 0%, transparent 70%),
+                var(--bg);
+        }
+
+        .page {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 420px;
+            padding: 56px 24px 48px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .avatar {
+            width: 112px;
+            height: 112px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid transparent;
+            background: linear-gradient(var(--bg), var(--bg)) padding-box,
+                        linear-gradient(135deg, #8b5cf6, #c4b5fd) border-box;
+            box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.15), 0 8px 30px rgba(124, 58, 237, 0.25);
+            margin-bottom: 22px;
+        }
+
+        .name {
+            font-size: 30px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #fff 20%, #c4b5fd 60%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+
+        .tagline {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--muted);
+            margin-bottom: 40px;
+        }
+
+        .links {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .card {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            padding: 16px 20px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            text-decoration: none;
+            color: var(--text);
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+            transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+            opacity: 0;
+            transform: translateY(14px) scale(0.98);
+            animation: in 0.6s ease forwards;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.12) 50%, transparent 60%);
+            transform: translateX(-150%);
+            transition: transform 0.6s ease;
+            pointer-events: none;
+        }
+        .card:hover::before {
+            transform: translateX(150%);
+        }
+        .card:nth-child(1) { animation-delay: 0.05s; }
+        .card:nth-child(2) { animation-delay: 0.1s; }
+        .card:nth-child(3) { animation-delay: 0.15s; }
+        .card:nth-child(4) { animation-delay: 0.2s; }
+        .card:nth-child(5) { animation-delay: 0.25s; }
+        .card:nth-child(6) { animation-delay: 0.3s; }
+        .card:nth-child(7) { animation-delay: 0.35s; }
+        .card:nth-child(8) { animation-delay: 0.4s; }
+        .card:nth-child(9) { animation-delay: 0.45s; }
+
+        @keyframes in {
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .card:hover {
+            border-color: rgba(139, 92, 246, 0.4);
+            background: rgba(139, 92, 246, 0.06);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.15);
+        }
+
+        .icon {
+            width: 22px;
+            height: 22px;
+            flex-shrink: 0;
+        }
+
+        .label {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .copy-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            margin-top: 28px;
+            padding: 13px 26px;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.18), rgba(139, 92, 246, 0.08));
+            border: 1px solid rgba(139, 92, 246, 0.35);
+            border-radius: 100px;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+        }
+        .copy-btn:hover {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(139, 92, 246, 0.12));
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.25);
+        }
+        .copy-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .footer {
+            margin-top: 36px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.22);
+        }
+
+        @media (max-width: 380px) {
+            .page { padding: 40px 18px; }
+            .avatar { width: 96px; height: 96px; }
+            .name { font-size: 26px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="bg"></div>
+
+<main class="page">
+    <img class="avatar" src="https://sun9-34.vkuserphoto.ru/s/v1/ig2/XqGSBmOOGZ1qlDb5vcXlbPbMws9wch3-Pm0V1V6zZICnuIXYPbMKuy6A9CZyRZ4cf9TDkMDD4ssNisvnnRt4HwlS.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,960x960&from=bu&u=3eZxigT5B67-bVVHpj8pKAlsLUy87gEblpR7IRgdamQ&cs=960x0" alt="EFANTI">
+
+    <h1 class="name">EFANTI</h1>
+    <p class="tagline">музыка и соцсети</p>
+
+    <nav class="links">
+        <a class="card" href="https://t.me/efantione" target="_blank">
+            <svg class="icon" viewBox="0 0 24 24" fill="#2AABEE"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121L8.46 13.16l-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/></svg>
+            <span class="label">Telegram</span>
+        </a>
+
+        <a class="card" href="https://vk.ru/efantione" target="_blank">
+            <svg class="icon" viewBox="0 0 24 24" fill="#4C75A3"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm6.24 13.56c.48.47 1.01.92 1.41 1.47.18.24.35.49.42.79.1.44-.19.66-.58.66h-2.12c-.55.04-.99-.18-1.38-.53-.32-.28-.62-.59-.93-.89-.13-.12-.26-.25-.41-.34-.29-.18-.54-.12-.69.19-.15.31-.18.65-.2.99-.02.49-.17.62-.67.64-1.06.04-2.08-.11-3.04-.51-1.81-.76-3.21-2.19-4.35-3.82-.21-.3-.07-.46.23-.47.71-.02 1.42-.02 2.13-.02.24 0 .41.11.52.34.45.95.99 1.84 1.68 2.64.18.21.37.41.6.57.28.2.46.13.58-.27.08-.25.1-.51.12-.77.02-.35-.02-.71-.07-1.06-.03-.22-.19-.36-.41-.4-1.14-.2-1.99-.56-2.65-1.41-.54-.69-.75-1.49-.73-2.34.02-.55.23-.84.78-.86.55-.02 1.11-.02 1.66-.02.39 0 .63.21.74.59.34 1.12.81 2.18 1.45 3.15.17.26.37.5.63.68.29.2.39.13.47-.17.05-.2.08-.4.09-.61.03-.52-.02-1.04-.07-1.56-.03-.33-.19-.52-.52-.57-.17-.03-.14-.1-.06-.19.14-.15.29-.23.57-.23h2.43c.38.07.47.25.52.62l.01 2.65c0 .15.07.59.33.69.21.08-.01.2-.04.28-.22.38-.51.66-.85.88-.56.33-.99.21-1.28-.37-.43-.92-.86-1.84-1.32-2.74-.07-.14-.14-.29-.26-.4l-.01.01c-.06.15-.06.15-.01.32.04.13.05.27.07.41.07.51.01 1-.07 1.51z"/></svg>
+            <span class="label">ВКонтакте</span>
+        </a>
+
+        <a class="card" href="https://www.instagram.com/efantione" target="_blank">
+            <svg class="icon" viewBox="0 0 24 24" fill="url(#ig)">
+                <defs><linearGradient id="ig" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#feda75"/><stop offset="25%" stop-color="#fa7e1e"/><stop offset="50%" stop-color="#d62976"/><stop offset="75%" stop-color="#962fbf"/><stop offset="100%" stop-color="#4f5bd5"/></linearGradient></defs>
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+            </svg>
+            <span class="label">Instagram</span>
+        </a>
+
+        <a class="card" href="https://www.tiktok.com/@efantione" target="_blank">
+            <svg class="icon" viewBox="0 0 24 24" fill="#ffffff"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.11V9a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.87a8.16 8.16 0 004.77 1.53V7.01a4.85 4.85 0 01-1.1-.32z"/></svg>
+            <span class="label">TikTok</span>
+        </a>
+
+        <a class="card" href="https://www.youtube.com/@efantilove" target="_blank">
+            <svg class="icon" viewBox="0 0 24 24" fill="#FF0000"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            <span class="label">YouTube</span>
+        </a>
+
+        <a class="card" href="https://music.yandex.ru/artist/15650020" target="_blank">
+            <svg class="icon" viewBox="0 0 24 24" fill="#FFCC00"><path d="M6 2l-.7 3.9L12 12l-6.7 6.1L6 22h12l.7-3.9L12 12l6.7-6.1L18 2H6z"/></svg>
+            <span class="label">Яндекс Музыка</span>
+        </a>
+
+        <a class="card" href="https://music.apple.com/us/artist/efanti/1139580182" target="_blank">
+            <svg class="icon" viewBox="0 0 24 24" fill="#FC3C44"><path d="M23.994 6.124a9.23 9.23 0 00-.24-2.19c-.317-1.31-1.062-2.31-2.18-3.043A5.022 5.022 0 0019.2.25a9.576 9.576 0 00-2.07-.137C16.354.01 15.704 0 14.005 0H9.995C8.296 0 7.646.01 6.87.113a9.576 9.576 0 00-2.07.137 5.022 5.022 0 00-2.374 1.54C1.309 4.416.564 5.415.247 6.725a9.23 9.23 0 00-.24 2.19C0 8.448 0 9.098 0 10.797v2.406c0 1.7 0 2.35.006 3.883a9.23 9.23 0 00.24 2.19c.317 1.31 1.062 2.31 2.18 3.043a5.022 5.022 0 002.374 1.54c.68.092 1.37.137 2.07.137.776.103 1.426.113 3.125.113h4.01c1.7 0 2.35-.01 3.125-.113a9.576 9.576 0 002.07-.137 5.022 5.022 0 002.374-1.54c1.118-.733 1.863-1.732 2.18-3.043a9.23 9.23 0 00.24-2.19c.006-1.533.006-2.183.006-3.883v-2.406c0-1.7 0-2.35-.006-3.883zM17.995 15.95a6.947 6.947 0 01-.175 1.635c-.236.98-.795 1.724-1.627 2.27a3.766 3.766 0 01-1.775 1.153c-.64.088-1.283.13-1.932.137-1.555.027-2.246.027-3.506.027h-3.5c-1.26 0-1.951 0-3.506-.027a6.432 6.432 0 01-1.932-.137 3.766 3.766 0 01-1.775-1.153c-.832-.546-1.391-1.29-1.627-2.27a6.947 6.947 0 01-.175-1.635c-.014-1.512-.014-2.12-.014-3.654v-2.074c0-1.534 0-2.142.014-3.654a6.947 6.947 0 01.175-1.635c.236-.98.795-1.724 1.627-2.27a3.766 3.766 0 011.775-1.153 6.432 6.432 0 011.932-.137c1.555-.027 2.246-.027 3.506-.027h3.5c1.26 0 1.951 0 3.506.027.649.006 1.292.049 1.932.137.69.09 1.3.342 1.775 1.153.832.546 1.391 1.29 1.627 2.27.162.67.183 1.35.175 1.635.014 1.512.014 2.12.014 3.654v2.074c0 1.534 0 2.142-.014 3.654zM12.014 6.334a5.683 5.683 0 00-5.681 5.681 5.683 5.683 0 005.681 5.682 5.683 5.683 0 005.682-5.682 5.683 5.683 0 00-5.682-5.681zm0 9.349a3.668 3.668 0 01-3.668-3.668A3.668 3.668 0 0112.014 8.347a3.668 3.668 0 013.668 3.668A3.668 3.668 0 0112.014 15.683zM18.406 4.59a1.33 1.33 0 100 2.66 1.33 1.33 0 000-2.66z"/></svg>
+            <span class="label">Apple Music</span>
+        </a>
+
+        <a class="card" href="https://zvuk.com/artist/211612999" target="_blank">
+            <svg class="icon" viewBox="0 0 24 24" fill="#1DB954"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+            <span class="label">Звук</span>
+        </a>
+    </nav>
+
+    <button class="copy-btn" onclick="copyLink()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/>
+            <path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/>
+        </svg>
+        <span id="copyLabel">Поделиться ссылкой</span>
+    </button>
+
+    <footer class="footer">EFANTI © 2025</footer>
+</main>
+
+<script>
+function copyLink() {
+    navigator.clipboard.writeText(window.location.href).then(function() {
+        var el = document.getElementById('copyLabel');
+        el.textContent = 'Скопировано!';
+        setTimeout(function() { el.textContent = 'Поделиться ссылкой'; }, 2000);
+    });
+}
+</script>
+
+</body>
+</html>
